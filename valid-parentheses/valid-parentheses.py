@@ -1,16 +1,10 @@
 class Solution:
     def isValid(self, s: str) -> bool:
-        dictionary={"(":")", "[":"]", "{":"}"}
-        list1=[]
+        d = {"(":")", "{":"}", "[":"]"}
+        stack = []
         for c in s:
-            if c in dictionary.keys():
-                list1.append(c)
-            else:
-                if list1:
-                    if (dictionary[list1[-1]]==c):
-                        list1.pop()
-                    else:
-                        return False
-                else:
-                    return False         
-        return len(list1)==0
+            if c in d.keys():
+                stack.append(c)
+            elif not stack or d[stack.pop()] != c:
+                return False
+        return not stack
